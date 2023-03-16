@@ -31,11 +31,13 @@ class Game
 
 	//resources
 
-	sf::Font font;
+	sf::Font fontIn;
+	sf::Font fontOut;
 
 	//text
 
-	sf::Text uiText;
+	sf::Text textIn;
+	sf::Text textOut;
 
 	bool endGame;
 	int startTime;

@@ -35,19 +35,43 @@ void Game::initbackgroundTexture()
 
 void Game::initFonts()
 {
-	if (this->font.loadFromFile("Fonts/Dosis-Light.ttf"))
+	if (this->fontIn.loadFromFile("Fonts/Cute Notes.ttf"))
 	{
-		std::cout << "error error error error F O N T S " << std::endl;
+		std::cout << "error FONTIN DOESNTWORK " << std::endl;
 	}
+
+	if (this->fontOut.loadFromFile("Fonts/Hanged Letters.ttf"))
+	{
+		std::cout << "error FONTOUT DOESNT WORK" << std::endl;
+	}
+
 
 }
 
 void Game::initText()
 {
-	this->uiText.setFont(this->font);
-	this->uiText.setCharacterSize(24);
-	this->uiText.setFillColor(sf::Color::White);
-	this->uiText.setString("NONE");
+	this->textIn.setFont(this->fontIn);
+	this->textIn.setCharacterSize(50);
+	this->textIn.setFillColor(sf::Color::Red);
+	this->textIn.setString("dupa dupa dupa");
+
+	sf::FloatRect textRectIn = textIn.getLocalBounds();
+	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
+	this->textIn.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
+
+
+
+	this->textOut.setFont(this->fontOut);
+	this->textOut.setCharacterSize(100);
+	this->textOut.setFillColor(sf::Color::White);
+	this->textOut.setString("dupa dupa dupa");
+
+	sf::FloatRect textRectOut = textOut.getLocalBounds();
+	this->textOut.setOrigin(textRectOut.left + textRectOut.width / 2.0f, textRectOut.top + textRectOut.height / 2.0f);
+	this->textOut.setPosition(this->window->getSize().x / 2.0f, 95.0f);
+
+
+
 }
 
 Game::Game()
@@ -130,7 +154,7 @@ void Game::uptadeText()
 	//ss << "Health: " << this->health << std::endl;
 	//ss << "Time: " << this->gameTime << std::endl;
 
-	this->uiText.setString(ss.str());
+	//this->uiText.setString(ss.str());
 }
 
 
@@ -162,7 +186,8 @@ void Game::renderbackGround()
 
 void Game::renderText(sf::RenderTarget& target)
 {
-	target.draw(this->uiText);
+	target.draw(this->textOut);
+	target.draw(this->textIn);
 }
 
 void Game::render()
@@ -171,9 +196,12 @@ void Game::render()
 
 	// draw 
 
+	this->renderbackGround();
+
+
 	this->renderText(*this->window);
 
-	this->renderbackGround();
+
 		
 	this->window->display();
 }
