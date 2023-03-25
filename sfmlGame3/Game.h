@@ -1,10 +1,13 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <ctime>
 #include<sstream>
 #include <time.h>
+#include <conio.h>
 #include <math.h>
+
 
 
 #include <SFML/Graphics.hpp>
@@ -13,6 +16,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+
 
 class Game
 {
@@ -36,12 +40,34 @@ class Game
 
 	//text
 
+	std::stringstream so;
+	std::stringstream si;
+
 	sf::Text textIn;
 	sf::Text textOut;
 
+	//text vector
+
+	std::vector<char> letters; //FOR CIN
+	std::vector<std::string> words; //FOR COUT
+
+
+
+	//document with words
+
+	std::fstream TextFile;
+
+
+	//
+
 	bool endGame;
+	bool enterPressed;
+	bool actionDone;
 	int startTime;
 	int stopTime;
+	
+
+
 
 	//private funcktions
 
@@ -50,6 +76,8 @@ class Game
 	void initWindow();
 	void initFonts();
 	void initText();
+	void initWords();
+	void initTextFile();
 	void initTime();
 	void initbackgroundTexture();
 
@@ -68,9 +96,10 @@ public:
 
 	void poolEvents();
 	void uptadeMousePositions();
-	void uptadeText();
+	void uptadeTextIn();
+	void uptadeTextOut();
 	void uptadeTime();
-	void uptadebackgroundTexture();
+	void setbackgroundTexture();
 	void uptade();
 
 	void renderText(sf::RenderTarget& target);

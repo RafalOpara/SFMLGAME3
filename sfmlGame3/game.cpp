@@ -10,8 +10,11 @@ void Game::initializeVariables()
 
 
 	bool endGame = false;
+	bool enterPressed = false;;
+	bool actionDone = false;;
 	int startTime=0;
 	int stopTime=0;
+	
 
 
 }
@@ -26,23 +29,29 @@ void Game::initWindow()
 
 void Game::initbackgroundTexture()
 {
-	if (this->backgroundTexture.loadFromFile("F:/VS projekty/sfmlgame3/sfmlGame3/sfmlGame3/resources/tablica.png")) {
-		std::cout << "tło sie nie ładuje" << std::endl;
+	if (this->backgroundTexture.loadFromFile("F:/VS projekty/sfmlgame3/sfmlGame3/sfmlGame3/resources/board.png")) {
+		std::cout << "CORRECT: BACKGROUND" << std::endl;
 	}
 
 	
+}
+
+void Game::setbackgroundTexture()
+{
+	this->background.setTexture(this->backgroundTexture);
+
 }
 
 void Game::initFonts()
 {
 	if (this->fontIn.loadFromFile("Fonts/Cute Notes.ttf"))
 	{
-		std::cout << "error FONTIN DOESNTWORK " << std::endl;
+		std::cout << "CORRECT: FONTIN  " << std::endl;
 	}
 
 	if (this->fontOut.loadFromFile("Fonts/Hanged Letters.ttf"))
 	{
-		std::cout << "error FONTOUT DOESNT WORK" << std::endl;
+		std::cout << "CORRECT: FONTOUT " << std::endl;
 	}
 
 
@@ -53,7 +62,7 @@ void Game::initText()
 	this->textIn.setFont(this->fontIn);
 	this->textIn.setCharacterSize(50);
 	this->textIn.setFillColor(sf::Color::Red);
-	this->textIn.setString("dupa dupa dupa");
+	//this->textIn.setString();
 
 	sf::FloatRect textRectIn = textIn.getLocalBounds();
 	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
@@ -74,13 +83,43 @@ void Game::initText()
 
 }
 
+void Game::initTextFile()
+{
+	TextFile.open(("F:/VS projekty/sfmlgame3/sfmlGame3/sfmlGame3/resources/TextFile.txt"), std::ios::in);
+	if (TextFile.good() == true)
+	{
+		std::cout << " correct: Text File";
+
+	}
+}
+
+void Game::initWords()
+{
+	std::string word;
+
+
+	while (TextFile >> word) { // wczytujemy słowa z pliku i dodajemy je do tablicy
+		this->words.push_back(word);
+
+	}
+
+	
+	uptadeTextOut();
+
+	TextFile.close(); // 
+}
+
+
 Game::Game()
 {
 	this->initializeVariables();
 	this->initWindow();
 	this->initFonts();
 	this->initText();
+	this->initTextFile();
+	this->initWords();
 	this->initbackgroundTexture();
+	this->setbackgroundTexture();
 }
 
 Game::~Game()
@@ -118,6 +157,28 @@ void Game::poolEvents()
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			break;
+		case sf::Event::TextEntered:
+			
+			if (this->ev.text.unicode < 128) // sprawdzenie, czy wprowadzony znak jest znakiem ASCII
+			{
+
+				
+
+				if (this->ev.text.unicode == 13)
+				{
+					this->letters.clear();
+					this->letters.shrink_to_fit();
+					this->enterPressed = true;
+					
+				}
+				else
+				{
+					this->letters.push_back(static_cast<char>(this->ev.text.unicode));
+					
+				}
+
+			}
+
 		}
 
 
@@ -141,41 +202,63 @@ void Game::uptadeTime()
 }
 
 
-void Game::uptadebackgroundTexture()
+
+
+void Game::uptadeTextIn()
 {
-	this->background.setTexture(this->backgroundTexture);
+
+	if (this->enterPressed = true)
+	{
+		this->textIn.setString("");
+	}
+
+	std::stringstream so;
+
+	for (char letter : letters)
+	{
+		so << letter;
+	}
+
+	this->textIn.setString(so.str());
+	sf::FloatRect textRectIn = textIn.getLocalBounds();
+	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
+	this->textIn.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
+
+
+
 }
 
-void Game::uptadeText()
+void Game::uptadeTextOut()
 {
-	std::stringstream ss;
+	
+		int randWord;
 
-	//ss << "Points: " << this->points << std::endl;
-	//ss << "Health: " << this->health << std::endl;
-	//ss << "Time: " << this->gameTime << std::endl;
-
-	//this->uiText.setString(ss.str());
+		randWord = std::rand() % this->words.size();
+		si << this->words[randWord];
+		this->textOut.setString(si.str());
+		this->enterPressed = false;
+	
+	
 }
 
 
 void Game::uptade()
 {
+
+
 	this->poolEvents();
 
 	if (!this->endGame)
 	{
-
 		this->uptadeMousePositions();
 		this->uptadeTime();
-		this->uptadeText();
-		this->uptadebackgroundTexture();
-		
+		this->uptadeTextIn();
+		this->uptadeTextOut();
 
 	}
 
 	//if (this->health <= 0)
 	//	this->endGame = true;
-
 }
 
 
