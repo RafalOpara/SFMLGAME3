@@ -14,7 +14,8 @@ void Game::initializeVariables()
 	bool actionDone = false;;
 	int startTime=0;
 	int stopTime=0;
-	
+	int count = 0;
+	std::string temp_word;
 
 
 }
@@ -61,23 +62,15 @@ void Game::initText()
 {
 	this->textIn.setFont(this->fontIn);
 	this->textIn.setCharacterSize(50);
-	this->textIn.setFillColor(sf::Color::Red);
+	
 	//this->textIn.setString();
-
-	sf::FloatRect textRectIn = textIn.getLocalBounds();
-	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
-	this->textIn.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
-
-
 
 	this->textOut.setFont(this->fontOut);
 	this->textOut.setCharacterSize(100);
 	this->textOut.setFillColor(sf::Color::White);
-	this->textOut.setString("dupa dupa dupa");
+	
 
-	sf::FloatRect textRectOut = textOut.getLocalBounds();
-	this->textOut.setOrigin(textRectOut.left + textRectOut.width / 2.0f, textRectOut.top + textRectOut.height / 2.0f);
-	this->textOut.setPosition(this->window->getSize().x / 2.0f, 95.0f);
+	
 
 
 
@@ -102,6 +95,10 @@ void Game::initWords()
 		this->words.push_back(word);
 
 	}
+
+	int randWord;
+
+	
 
 	
 	uptadeTextOut();
@@ -169,11 +166,51 @@ void Game::poolEvents()
 					this->letters.clear();
 					this->letters.shrink_to_fit();
 					this->enterPressed = true;
+					this->count=0;
 					
 				}
+
+
+				else if(this->ev.text.unicode == 8)
+				{
+					if (this->letters.size() > 0)
+					{
+						this->letters.pop_back();
+
+						
+
+						if (this->count != 0)
+						{
+							this->count--;
+							this->logic();
+
+						}
+
+						
+					}
+					
+				}
+
 				else
 				{
-					this->letters.push_back(static_cast<char>(this->ev.text.unicode));
+					
+					
+
+					if (this->count != this->temp_word.size())
+					{
+						this->letters.push_back(static_cast<char>(this->ev.text.unicode));
+
+						
+
+						if (this->count != this->temp_word.size())
+						{
+							this->count++;
+						}
+
+						this->logic();
+
+					}
+
 					
 				}
 
@@ -207,19 +244,23 @@ void Game::uptadeTime()
 void Game::uptadeTextIn()
 {
 
-	if (this->enterPressed = true)
+
+
+	if (this->enterPressed == true)
 	{
 		this->textIn.setString("");
 	}
 
-	std::stringstream so;
+
+
+	std::stringstream si;
 
 	for (char letter : letters)
 	{
-		so << letter;
+		si << letter;
 	}
 
-	this->textIn.setString(so.str());
+	this->textIn.setString(si.str());
 	sf::FloatRect textRectIn = textIn.getLocalBounds();
 	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
 	this->textIn.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
@@ -230,13 +271,23 @@ void Game::uptadeTextIn()
 
 void Game::uptadeTextOut()
 {
-	
+		
+		std::stringstream so;
+			
+		this->textOut.setString("");
+
 		int randWord;
 
 		randWord = std::rand() % this->words.size();
-		si << this->words[randWord];
-		this->textOut.setString(si.str());
+		so << this->words[randWord];
+		this->textOut.setString(so.str());
 		this->enterPressed = false;
+
+		this->temp_word = words[randWord];
+
+		sf::FloatRect textRectOut = textOut.getLocalBounds();
+		this->textOut.setOrigin(textRectOut.left + textRectOut.width / 2.0f, textRectOut.top + textRectOut.height / 2.0f);
+		this->textOut.setPosition(this->window->getSize().x / 2.0f, 95.0f);
 	
 	
 }
@@ -253,8 +304,11 @@ void Game::uptade()
 		this->uptadeMousePositions();
 		this->uptadeTime();
 		this->uptadeTextIn();
-		this->uptadeTextOut();
 
+		if (this->enterPressed == true)
+		{
+			this->uptadeTextOut();
+		}
 	}
 
 	//if (this->health <= 0)

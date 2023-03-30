@@ -26,7 +26,7 @@ int main()
 		//render
 		game.render();
 
-
+		
 	}
 	//End
 

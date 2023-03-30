@@ -7,6 +7,8 @@
 #include <time.h>
 #include <conio.h>
 #include <math.h>
+#include <cctype>
+
 
 
 
@@ -65,11 +67,15 @@ class Game
 	bool actionDone;
 	int startTime;
 	int stopTime;
-	
+	int count;
+	std::string temp_word;
 
 
 
 	//private funcktions
+
+	void setbackgroundTexture();
+	void logic();
 
 
 	void initializeVariables();
@@ -99,9 +105,7 @@ public:
 	void uptadeTextIn();
 	void uptadeTextOut();
 	void uptadeTime();
-	void setbackgroundTexture();
 	void uptade();
-
 	void renderText(sf::RenderTarget& target);
 	void render();
 	void renderbackGround();
