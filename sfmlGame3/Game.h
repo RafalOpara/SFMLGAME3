@@ -39,19 +39,23 @@ class Game
 
 	sf::Font fontIn;
 	sf::Font fontOut;
+	sf::Font fontDown;
 
 	//text
 
 	std::stringstream so;
 	std::stringstream si;
+	std::stringstream sd;
 
 	sf::Text textIn;
 	sf::Text textOut;
+	sf::Text textDown;
 
 	//text vector
 
 	std::vector<char> letters; //FOR CIN
 	std::vector<std::string> words; //FOR COUT
+	std::vector<std::string> correctWords;
 
 
 
@@ -68,6 +72,7 @@ class Game
 	int startTime;
 	int stopTime;
 	int count;
+	int points;
 	std::string temp_word;
 
 
@@ -76,6 +81,7 @@ class Game
 
 	void setbackgroundTexture();
 	void logic();
+	
 
 
 	void initializeVariables();
@@ -104,6 +110,7 @@ public:
 	void uptadeMousePositions();
 	void uptadeTextIn();
 	void uptadeTextOut();
+	void uptadeTextDown();
 	void uptadeTime();
 	void uptade();
 	void renderText(sf::RenderTarget& target);

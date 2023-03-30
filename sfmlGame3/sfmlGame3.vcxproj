@@ -142,6 +142,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="logic.cpp" />
+    <ClCompile Include="fonts.cpp" />
+    <ClCompile Include="text.cpp" />
+    <ClCompile Include="DATABASE.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />

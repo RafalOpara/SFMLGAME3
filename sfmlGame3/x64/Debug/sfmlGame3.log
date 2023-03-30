@@ -1,5 +1,2 @@
-﻿  game.cpp
-F:\VS projekty\sfmlgame3\sfmlGame3\sfmlGame3\game.cpp(99,6): warning C4101: "randWord": lokalna zmienna, do której nie istnieje odwołanie
-  logic.cpp
-  Generowanie kodu...
+﻿  fonts.cpp
   sfmlGame3.vcxproj -> F:\VS projekty\sfmlgame3\sfmlGame3\x64\Debug\sfmlGame3.exe

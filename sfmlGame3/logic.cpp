@@ -30,20 +30,4 @@ void Game::logic()
 	std::cout << "count w logic po funckja " << count;
 }
 
-/*
 
-	std::cout << this->letters[count] << "  litera pierwsza o indeksie " << count << std::endl;
-	std::cout << this->temp_word[count] << "   litera ze slowka pierwsza o indeksie " << count << std::endl;
-
-	if (tolower (this->letters[count]) == tolower (this->temp_word[count]))
-	{
-		this->textIn.setFillColor(sf::Color::Green);
-	}
-	else
-	{
-		this->textIn.setFillColor(sf::Color::Yellow);
-	}
-
-	*/
-	//std::vector<char> letters; //FOR CIN
-	//std::vector<std::string> words; //FOR COUT
