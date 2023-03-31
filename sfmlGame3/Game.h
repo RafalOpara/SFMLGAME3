@@ -30,6 +30,9 @@ class Game
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
 
+	//underline
+
+
 	//mous positions
 	
 	sf::Vector2i mousePosWindow;
@@ -46,10 +49,12 @@ class Game
 	std::stringstream so;
 	std::stringstream si;
 	std::stringstream sd;
+	std::stringstream sd2;
 
 	sf::Text textIn;
 	sf::Text textOut;
 	sf::Text textDown;
+	sf::Text textDown2;
 
 	//text vector
 

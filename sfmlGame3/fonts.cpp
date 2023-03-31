@@ -56,7 +56,11 @@ void Game::initText()
 	//INIT TEXT FOR CORRECT WORDS
 
 	this->textDown.setFont(this->fontDown);
-	this->textDown.setCharacterSize(50);
+	this->textDown.setCharacterSize(20);
 	this->textDown.setFillColor(sf::Color::White);
+
+	this->textDown2.setFont(this->fontDown);
+	this->textDown2.setCharacterSize(20);
+	this->textDown2.setFillColor(sf::Color::White);
 
 }

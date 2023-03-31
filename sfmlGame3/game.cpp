@@ -223,6 +223,7 @@ void Game::renderText(sf::RenderTarget& target)
 	target.draw(this->textOut);
 	target.draw(this->textIn);
 	target.draw(this->textDown);
+	target.draw(this->textDown2);
 }
 
 void Game::render()

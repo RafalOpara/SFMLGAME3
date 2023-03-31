@@ -10,9 +10,7 @@
 
 void Game::logic()
 {
-	std::cout << "count w logic przed funckja " << count;
-	std::cout << std::endl;
-	std::cout << std::endl;
+
 
 	for (int i = 0; i < this->count; i++)
 	{
@@ -27,7 +25,7 @@ void Game::logic()
 
 	}
 
-	std::cout << "count w logic po funckja " << count;
+	
 }
 
 
