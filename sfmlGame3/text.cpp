@@ -40,7 +40,9 @@ void Game::uptadeTextOut()
 	int randWord;
 
 	randWord = std::rand() % this->words.size();
+
 	so << this->words[randWord];
+
 	this->textOut.setString(so.str());
 	this->enterPressed = false;
 
@@ -114,3 +116,95 @@ void Game::uptadeTextDown()
 
 
 }
+
+
+
+
+
+
+void Game::uptadeTime()
+{
+
+
+	float deltaTime = this->m_clock.restart().asSeconds(); // czas od ostatniej klatki
+
+	this->m_gameTime += deltaTime; // zaktualizuj czas gry
+
+	// wyświetl upływający czas na ekranie
+	std::stringstream timeString;
+	timeString << "Czas gry: " << std::fixed << std::setprecision(1) << m_gameTime << " s";
+
+	sf::Text timeText(timeString.str(), fontPlus, 1);
+	
+	
+
+	this->textTime.setString(timeString.str());
+
+	this->textTime.setPosition(800, 35);
+
+
+	if (this->m_gameTime >= 5)
+	{
+		this->setScore(true);
+	}
+
+
+
+	if (this->m_gameTime <= 10)
+	{
+		this->textTime.setFillColor(sf::Color::White);
+	}
+	else if(this->m_gameTime > 10 && this->m_gameTime <20)
+	{
+		this->textTime.setFillColor(sf::Color::Yellow);
+	}
+	else if (this->m_gameTime >= 20)
+	{
+		this->textTime.setFillColor(sf::Color::Red);
+	}
+	
+	
+}
+
+void Game::uptadePoints()
+{
+
+
+	// wyświetl upływający czas na ekranie
+	std::stringstream pointString;
+	pointString << "Punkty: " << this->points;
+
+	sf::Text pointText(pointString.str(), fontPlus, 1);
+
+
+	this->textPoints.setString(pointString.str());
+
+	this->textPoints.setPosition(800, 70);
+
+
+}
+
+void Game::endScore()
+{
+
+
+	// wyświetl upływający czas na ekranie
+	std::stringstream scoreString;
+	scoreString << "Punkty: " << this->points;
+
+	sf::Text pointText(scoreString.str(), fontPlus, 1);
+
+
+	this->endScorePoints.setString(scoreString.str());
+
+	sf::FloatRect textRect = endScorePoints.getLocalBounds();
+
+	endScorePoints.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	endScorePoints.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
+
+
+
+
+}
+
+

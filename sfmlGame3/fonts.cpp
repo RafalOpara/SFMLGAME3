@@ -25,6 +25,10 @@ void Game::initFonts()
 		std::cout << "CORRECT: FONTOUT " << std::endl;
 	}
 
+	if (this->fontPlus.loadFromFile("Fonts/plus.ttf"))
+	{
+		std::cout << "CORRECT: Extra fonts " << std::endl;
+	}
 
 
 	if (this->fontDown.loadFromFile("Fonts/Downfont.ttf"))
@@ -39,9 +43,9 @@ void Game::initText()
 {
 	//INIT TEXT IN
 
-
 	this->textIn.setFont(this->fontIn);
 	this->textIn.setCharacterSize(50);
+
 
 	//INIT TEXT OUT
 
@@ -50,7 +54,22 @@ void Game::initText()
 	this->textOut.setFillColor(sf::Color::White);
 
 
-	//INIT TEXT FOR TIME
+	//INIT TEXT FOR TIME and points
+
+
+	this->textPoints.setFont(this->fontPlus);
+	this->textPoints.setCharacterSize(40);
+	this->textPoints.setFillColor(sf::Color::White);
+
+
+	this->textTime.setFont(this->fontPlus);
+	this->textTime.setCharacterSize(40);
+	this->textTime.setFillColor(sf::Color::White);
+
+
+	this->endScorePoints.setFont(this->fontPlus);
+	this->endScorePoints.setCharacterSize(40);
+	this->endScorePoints.setFillColor(sf::Color::White);
 
 
 	//INIT TEXT FOR CORRECT WORDS

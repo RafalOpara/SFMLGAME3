@@ -10,12 +10,16 @@ void Game::initializeVariables()
 
 
 	bool endGame = false;
+	bool score = false;
 	bool enterPressed = false;;
 	bool actionDone = false;;
 	int startTime=0;
 	int stopTime=0;
 	int count = 0;
 	int points = 0;
+
+	this->startTime = clock();
+	this->gameTime = 0;
 
 	std::string temp_word;
 
@@ -41,6 +45,7 @@ void Game::initbackgroundTexture()
 
 	
 }
+
 
 
 
@@ -73,7 +78,18 @@ const bool Game::getEndGame() const
 	return this->endGame;
 }
 
+const bool Game::getScore() const
+{
+	return this->score;
+}
 
+void Game::setEndGame(bool value) {
+	this->endGame = value;
+}
+
+void Game::setScore(bool value) {
+	this->score = value;
+}
 
 
 void Game::poolEvents()
@@ -176,12 +192,6 @@ void Game::uptadeMousePositions()
 	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
-void Game::uptadeTime()
-{
-	this->stopTime = clock();
-	//this->gameTime = ((double)(this->stopTime - this->startTime)) / CLOCKS_PER_SEC;
-	//std::cout << gameTime;
-}
 
 
 
@@ -191,13 +201,19 @@ void Game::uptadeTime()
 void Game::uptade()
 {
 
-
+	
 	this->poolEvents();
+
+	
+
 
 	if (!this->endGame)
 	{
-		this->uptadeMousePositions();
 		this->uptadeTime();
+		this->uptadePoints();
+
+
+		this->uptadeMousePositions();
 		this->uptadeTextIn();
 		
 
@@ -224,6 +240,13 @@ void Game::renderText(sf::RenderTarget& target)
 	target.draw(this->textIn);
 	target.draw(this->textDown);
 	target.draw(this->textDown2);
+	target.draw(this->textTime);
+	target.draw(this->textPoints);
+}
+
+void Game::renderScore(sf::RenderTarget& target)
+{
+	target.draw(this->endScorePoints);
 }
 
 void Game::render()
@@ -240,4 +263,15 @@ void Game::render()
 
 		
 	this->window->display();
+}
+
+void Game::endRender()
+{
+	this->poolEvents();
+	this->window->clear();
+	this->renderbackGround();
+	this->endScore();
+	this->renderScore(*this->window);
+	this->window->display();
+
 }

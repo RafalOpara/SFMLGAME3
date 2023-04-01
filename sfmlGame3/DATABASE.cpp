@@ -22,7 +22,7 @@ void Game::initWords()
 
 	}
 
-	int randWord;
+
 
 
 

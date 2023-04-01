@@ -8,6 +8,7 @@
 #include <conio.h>
 #include <math.h>
 #include <cctype>
+#include <iomanip>
 
 
 
@@ -43,6 +44,7 @@ class Game
 	sf::Font fontIn;
 	sf::Font fontOut;
 	sf::Font fontDown;
+	sf::Font fontPlus;
 
 	//text
 
@@ -50,11 +52,15 @@ class Game
 	std::stringstream si;
 	std::stringstream sd;
 	std::stringstream sd2;
+	std::stringstream st;
 
 	sf::Text textIn;
 	sf::Text textOut;
 	sf::Text textDown;
 	sf::Text textDown2;
+	sf::Text textTime;
+	sf::Text textPoints;
+	sf::Text endScorePoints;
 
 	//text vector
 
@@ -72,21 +78,37 @@ class Game
 	//
 
 	bool endGame;
+	bool score;
+
+
 	bool enterPressed;
 	bool actionDone;
+
 	int startTime;
 	int stopTime;
+	float gameTime;
+
 	int count;
 	int points;
 	std::string temp_word;
+	/////////////////////test
 
 
+	sf::RenderWindow m_window;
+	sf::Clock m_clock;
+	float m_gameTime; // czas gry w sekundach
 
+
+	///////////////////////test
 	//private funcktions
 
 	void setbackgroundTexture();
 	void logic();
 	
+
+
+	void setEndGame(bool value);
+	void setScore(bool value);
 
 
 	void initializeVariables();
@@ -95,7 +117,7 @@ class Game
 	void initText();
 	void initWords();
 	void initTextFile();
-	void initTime();
+;
 	void initbackgroundTexture();
 
 public:
@@ -107,6 +129,7 @@ public:
 	
 	const bool running() const;
 	const bool getEndGame() const;
+	const bool getScore() const;
 
 	//public functions
 
@@ -115,11 +138,19 @@ public:
 	void uptadeMousePositions();
 	void uptadeTextIn();
 	void uptadeTextOut();
+
 	void uptadeTextDown();
 	void uptadeTime();
+	void uptadePoints();
 	void uptade();
 	void renderText(sf::RenderTarget& target);
 	void render();
+	void endRender();
 	void renderbackGround();
+
+	void renderScore(sf::RenderTarget& target);
+
+	void endScore();
+	
 
 };

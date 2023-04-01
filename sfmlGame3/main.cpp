@@ -16,17 +16,26 @@ int main()
 	Game game;
 
 	//Game loop
-	while (game.running() && !game.getEndGame())
+	while (game.running() && !game.getEndGame() )
 	{
 
+		if (game.getScore() == true)
+		{
 
-		//uptade
-		game.uptade();
+			game.endRender();
 
-		//render
-		game.render();
+		}
+		else
+		{
 
-		
+
+			//uptade
+			game.uptade();
+
+			//render
+			game.render();
+
+		}
 	}
 	//End
 
