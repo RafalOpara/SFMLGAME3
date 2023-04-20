@@ -2,8 +2,6 @@
 
 
 
-//cos z tym count +1 trzeba zrbic bo albo nie czyta znaku nie biezaco albo przy backspace sie pierodli
-
 
 
 

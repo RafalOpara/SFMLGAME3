@@ -141,10 +141,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="logic.cpp" />
     <ClCompile Include="fonts.cpp" />
-    <ClCompile Include="text.cpp" />
-    <ClCompile Include="DATABASE.cpp" />
+    <ClCompile Include="uptadetext.cpp" />
+    <ClCompile Include="source.cpp" />
+    <ClCompile Include="render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />

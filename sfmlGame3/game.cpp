@@ -13,17 +13,20 @@ void Game::initializeVariables()
 	bool score = false;
 	bool enterPressed = false;;
 	bool actionDone = false;;
-	int startTime=0;
-	int stopTime=0;
-	int count = 0;
-	int points = 0;
+	
+	 this->count = 0;
+	 this-> points = 0;
 
-	this->startTime = clock();
-	this->gameTime = 0;
+	this->time_left = 30;
+
+	this->gameState = 2;
 
 	std::string temp_word;
 
+	
 
+
+	
 }
 
 
@@ -48,9 +51,9 @@ void Game::initbackgroundTexture()
 
 
 
-
 Game::Game()
 {
+	
 	this->initializeVariables();
 	this->initWindow();
 	this->initFonts();
@@ -59,6 +62,9 @@ Game::Game()
 	this->initWords();
 	this->initbackgroundTexture();
 	this->setbackgroundTexture();
+	
+
+	
 }
 
 Game::~Game()
@@ -92,6 +98,18 @@ void Game::setScore(bool value) {
 }
 
 
+int Game::getGameState()
+{
+	return this->gameState;
+}
+
+void Game::setGameState(int newState)
+{
+	this->gameState = newState;
+}
+
+
+
 void Game::poolEvents()
 {
 	//event polling
@@ -107,74 +125,85 @@ void Game::poolEvents()
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			break;
-		case sf::Event::TextEntered:
-			
-			if (this->ev.text.unicode < 128) // sprawdzenie, czy wprowadzony znak jest znakiem ASCII
+
+			if (this->gameState == 2)
 			{
 
-				
 
-				if (this->ev.text.unicode == 13)
+				case sf::Event::TextEntered:
+
+				if (this->ev.text.unicode < 128) // sprawdzenie, czy wprowadzony znak jest znakiem ASCII
 				{
-					if (textIn.getFillColor() == sf::Color::Green && this->letters.size() == this->temp_word.size())
-					{
-						this->points++;
-						this->correctWords.push_back(temp_word);
-						
 
-						this->letters.clear();
-						this->letters.shrink_to_fit();
-						this->enterPressed = true;
-						this->count = 0;
+
+
+					if (this->ev.text.unicode == 13)
+					{
+						if (textIn.getFillColor() == sf::Color::Green && this->letters.size() == this->temp_word.size())
+						{
+							this->points++;
+							this->time_left = this->time_left + 1;
+							this->correctWords.push_back(temp_word);
+
+
+							this->letters.clear();
+							this->letters.shrink_to_fit();
+							this->enterPressed = true;
+							this->count = 0;
+						}
+
+
 					}
 
 
-				}
-
-
-				else if(this->ev.text.unicode == 8)
-				{
-					if (this->letters.size() > 0)
+					else if (this->ev.text.unicode == 8)
 					{
-						this->letters.pop_back();
-
-						
-
-						if (this->count != 0)
+						if (this->letters.size() > 0)
 						{
-							this->count--;
-							this->logic();
+							this->letters.pop_back();
+
+
+
+							if (this->count != 0)
+							{
+								this->count--;
+								this->uptadeColor();
+
+							}
+
 
 						}
 
-						
 					}
-					
-				}
 
-				else
-				{
-					
-					
-
-					if (this->count != this->temp_word.size())
+					else
 					{
-						this->letters.push_back(static_cast<char>(this->ev.text.unicode));
 
-						
+
 
 						if (this->count != this->temp_word.size())
 						{
-							this->count++;
+							this->letters.push_back(static_cast<char>(this->ev.text.unicode));
+
+
+
+							if (this->count != this->temp_word.size())
+							{
+								this->count++;
+							}
+
+							this->uptadeColor();
+
 						}
 
-						this->logic();
 
 					}
 
-					
 				}
-
+			}
+			else if (gameState = 1)
+			{
+				/
 			}
 
 		}
@@ -184,94 +213,6 @@ void Game::poolEvents()
 
 }
 
-void Game::uptadeMousePositions()
-{
-	//return void uptade the mouse positions: relative to window (vector2i)
-
-	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
-	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
-}
 
 
 
-
-
-
-
-void Game::uptade()
-{
-
-	
-	this->poolEvents();
-
-	
-
-
-	if (!this->endGame)
-	{
-		this->uptadeTime();
-		this->uptadePoints();
-
-
-		this->uptadeMousePositions();
-		this->uptadeTextIn();
-		
-
-		if (this->enterPressed == true)
-		{
-			this->uptadeTextOut();
-			this->uptadeTextDown();
-		}
-	}
-
-	//if (this->health <= 0)
-	//	this->endGame = true;
-}
-
-
-void Game::renderbackGround()
-{
-	this->window->draw(this->background);
-}
-
-void Game::renderText(sf::RenderTarget& target)
-{
-	target.draw(this->textOut);
-	target.draw(this->textIn);
-	target.draw(this->textDown);
-	target.draw(this->textDown2);
-	target.draw(this->textTime);
-	target.draw(this->textPoints);
-}
-
-void Game::renderScore(sf::RenderTarget& target)
-{
-	target.draw(this->endScorePoints);
-}
-
-void Game::render()
-{
-	this->window->clear();
-
-	// draw 
-
-	this->renderbackGround();
-
-
-	this->renderText(*this->window);
-
-
-		
-	this->window->display();
-}
-
-void Game::endRender()
-{
-	this->poolEvents();
-	this->window->clear();
-	this->renderbackGround();
-	this->endScore();
-	this->renderScore(*this->window);
-	this->window->display();
-
-}

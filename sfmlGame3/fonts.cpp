@@ -82,4 +82,23 @@ void Game::initText()
 	this->textDown2.setCharacterSize(20);
 	this->textDown2.setFillColor(sf::Color::White);
 
+
+	/// init text for menu 
+
+	this->menuStart.setFont(this->fontPlus);
+	this->menuStart.setCharacterSize(40);
+	this->menuStart.setFillColor(sf::Color::Green);
+
+	this->menuDescribe.setFont(this->fontPlus);
+	this->menuDescribe.setCharacterSize(40);
+	this->menuDescribe.setFillColor(sf::Color::White);
+
+	this->menuOptions.setFont(this->fontPlus);
+	this->menuOptions.setCharacterSize(40);
+	this->menuOptions.setFillColor(sf::Color::White);
+
+	this->menuExit.setFont(this->fontPlus);
+	this->menuExit.setCharacterSize(40);
+	this->menuExit.setFillColor(sf::Color::White);
+
 }

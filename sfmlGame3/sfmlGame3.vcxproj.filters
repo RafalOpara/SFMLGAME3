@@ -13,25 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki źródłowe\mid game">
+      <UniqueIdentifier>{fa3749dd-e93a-49ff-879f-45aa397fc3f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\MenuStart">
+      <UniqueIdentifier>{bf3b5fa8-5035-4191-b16c-77c61aeae823}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="logic.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="fonts.cpp">
       <Filter>Pliki zasobów</Filter>
     </ClCompile>
-    <ClCompile Include="text.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="source.cpp">
+      <Filter>Pliki źródłowe\mid game</Filter>
     </ClCompile>
-    <ClCompile Include="DATABASE.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="game.cpp">
+      <Filter>Pliki źródłowe\mid game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Pliki źródłowe\mid game</Filter>
+    </ClCompile>
+    <ClCompile Include="uptadetext.cpp">
+      <Filter>Pliki źródłowe\mid game</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Pliki źródłowe\mid game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

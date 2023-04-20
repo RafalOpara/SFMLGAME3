@@ -9,7 +9,7 @@
 #include <math.h>
 #include <cctype>
 #include <iomanip>
-
+#include <chrono>
 
 
 
@@ -31,13 +31,9 @@ class Game
 	sf::Texture backgroundTexture;
 	sf::Sprite background;
 
-	//underline
-
-
-	//mous positions
 	
-	sf::Vector2i mousePosWindow;
-	sf::Vector2f mousePosView;
+	
+	
 
 	//resources
 
@@ -48,12 +44,6 @@ class Game
 
 	//text
 
-	std::stringstream so;
-	std::stringstream si;
-	std::stringstream sd;
-	std::stringstream sd2;
-	std::stringstream st;
-
 	sf::Text textIn;
 	sf::Text textOut;
 	sf::Text textDown;
@@ -61,6 +51,10 @@ class Game
 	sf::Text textTime;
 	sf::Text textPoints;
 	sf::Text endScorePoints;
+	sf::Text menuStart;
+	sf::Text menuDescribe;
+	sf::Text menuExit;
+	sf::Text menuOptions;
 
 	//text vector
 
@@ -84,31 +78,45 @@ class Game
 	bool enterPressed;
 	bool actionDone;
 
-	int startTime;
-	int stopTime;
-	float gameTime;
+	enum gameState; 
+	gameState state_;
 
 	int count;
 	int points;
 	std::string temp_word;
-	/////////////////////test
+
+	int gameState;
+	
+	
+	/// time
+	///////////////////////////////
+	
+	int time_left;
+
+	sf::Clock clock;
+	sf::Time elapsed_time = clock.getElapsedTime();
+
+
+	//////////////////
 
 
 	sf::RenderWindow m_window;
-	sf::Clock m_clock;
-	float m_gameTime; // czas gry w sekundach
+	
+	
 
 
 	///////////////////////test
 	//private funcktions
 
 	void setbackgroundTexture();
-	void logic();
+	void uptadeColor();
 	
 
 
 	void setEndGame(bool value);
 	void setScore(bool value);
+	
+
 
 
 	void initializeVariables();
@@ -117,6 +125,7 @@ class Game
 	void initText();
 	void initWords();
 	void initTextFile();
+	void initStart_time();
 ;
 	void initbackgroundTexture();
 
@@ -131,24 +140,36 @@ public:
 	const bool getEndGame() const;
 	const bool getScore() const;
 
+	/// gameState
+
+
+
 	//public functions
 
+
+	int getGameState();
+	void setGameState(int);
 
 	void poolEvents();
 	void uptadeMousePositions();
 	void uptadeTextIn();
 	void uptadeTextOut();
+	void uptadeMenu();
 
 	void uptadeTextDown();
 	void uptadeTime();
 	void uptadePoints();
 	void uptade();
-	void renderText(sf::RenderTarget& target);
+	
+
 	void render();
 	void endRender();
+	void menuRender();
 	void renderbackGround();
 
+	void renderText(sf::RenderTarget& target);
 	void renderScore(sf::RenderTarget& target);
+	void renderMenu(sf::RenderTarget& target);
 
 	void endScore();
 	

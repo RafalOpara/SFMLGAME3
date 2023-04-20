@@ -18,24 +18,26 @@ int main()
 	//Game loop
 	while (game.running() && !game.getEndGame() )
 	{
-
-		if (game.getScore() == true)
+		if (game.getGameState() == 1)
 		{
-
-			game.endRender();
-
+			game.menuRender();
 		}
-		else
+
+		else if (game.getGameState() == 2)
 		{
-
-
 			//uptade
 			game.uptade();
 
 			//render
 			game.render();
-
 		}
+
+		else if (game.getGameState() == 3)
+		{
+			game.endRender();
+		}
+
+
 	}
 	//End
 
