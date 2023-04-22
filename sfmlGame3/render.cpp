@@ -5,6 +5,32 @@ void Game::renderbackGround()
 	this->window->draw(this->background);
 }
 
+
+
+
+
+/// ////////////////////////////
+
+
+void Game::renderMenu(sf::RenderTarget& target)
+{
+	target.draw(this->menuStart);
+	target.draw(this->menuDescribe);
+	target.draw(this->menuOptions);
+	target.draw(this->menuExit);
+}
+
+void Game::menuRender()
+{
+	this->poolEvents();
+	this->window->clear();
+	this->renderbackGround();
+	this->uptadeMenu();
+	this->renderMenu(*this->window);
+	this->window->display();
+
+}
+///////////////////////////////////
 void Game::renderText(sf::RenderTarget& target)
 {
 	target.draw(this->textOut);
@@ -32,7 +58,7 @@ void Game::render()
 
 	this->window->display();
 }
-
+///////////////////////////////////
 
 void Game::renderScore(sf::RenderTarget& target)
 {
@@ -44,26 +70,7 @@ void Game::endRender()
 	this->poolEvents();
 	this->window->clear();
 	this->renderbackGround();
-	this->endScore();
-	this->renderScore(*this->window);
-	this->window->display();
-
-}
-
-void Game::renderMenu(sf::RenderTarget& target)
-{
-	target.draw(this->menuStart);
-	target.draw(this->menuDescribe);
-	target.draw(this->menuOptions);
-	target.draw(this->menuExit);
-}
-
-void Game::menuRender()
-{
-	this->poolEvents();
-	this->window->clear();
-	this->renderbackGround();
-	this->uptadeMenu();
+	this->endMenu();
 	this->renderMenu(*this->window);
 	this->window->display();
 

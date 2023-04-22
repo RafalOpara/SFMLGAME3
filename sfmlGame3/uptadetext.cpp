@@ -220,23 +220,74 @@ void Game::uptadePoints()
 
 }
 
-void Game::endScore()
+void Game::endMenu()
 {
 
 
-	// wyświetl upływający czas na ekranie
-	std::stringstream so;
-	so << "Punkty: " << this->points;
 
-	sf::Text pointText(so.str(), fontPlus, 1);
+	std::stringstream so1;
+	std::stringstream so2;
+	std::stringstream so3;
+	std::stringstream so4;
+
+	this->menuExit.setString("");
+	this->menuStart.setString("");
+	this->menuDescribe.setString("");
+	this->menuOptions.setString("");
 
 
-	this->endScorePoints.setString(so.str());
 
-	sf::FloatRect textRect = endScorePoints.getLocalBounds();
+	this->menuStart.setString(so1.str());
+	this->menuDescribe.setString(so2.str());
+	this->menuOptions.setString(so3.str());
+	this->menuExit.setString(so4.str());
 
-	endScorePoints.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-	endScorePoints.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
+
+	so1 << "Punkty: " << this->points;
+	this->menuStart.setString(so1.str());
+
+	so2 << "Play Again";
+	this->menuDescribe.setString(so2.str());
+
+	so3 << "Back to menu";
+	this->menuOptions.setString(so3.str());
+
+	so4 << "EXIT";
+	this->menuExit.setString(so4.str());
+
+	this->menuStart.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.2));
+	this->menuDescribe.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.4));
+	this->menuOptions.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.6));
+	this->menuExit.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.8));
+
+	this->menuStart.setCharacterSize(60);
+
+	if (this->menuPick == 1) { (this->menuStart.setFillColor(sf::Color::Green)); }
+	else { this->menuStart.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 2) { (this->menuDescribe.setFillColor(sf::Color::Green)); }
+	else { this->menuDescribe.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 3) { (this->menuOptions.setFillColor(sf::Color::Green)); }
+	else { this->menuOptions.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 4) { (this->menuExit.setFillColor(sf::Color::Green)); }
+	else { this->menuExit.setFillColor(sf::Color::White); }
+
+
+	sf::FloatRect textRect1 = menuExit.getLocalBounds();
+	menuExit.setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);
+
+	sf::FloatRect textRect2 = menuStart.getLocalBounds();
+	menuStart.setOrigin(textRect2.left + textRect2.width / 2.0f, textRect2.top + textRect2.height / 2.0f);
+
+	sf::FloatRect textRect3 = menuDescribe.getLocalBounds();
+	menuDescribe.setOrigin(textRect3.left + textRect3.width / 2.0f, textRect3.top + textRect3.height / 2.0f);
+
+	sf::FloatRect textRect4 = menuOptions.getLocalBounds();
+	menuOptions.setOrigin(textRect4.left + textRect4.width / 2.0f, textRect4.top + textRect4.height / 2.0f);
+
+
 
 
 
@@ -304,7 +355,19 @@ this->menuExit.setString(so4.str());
 	this->menuOptions.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.6));
 	this->menuExit.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.8));
 
-	
+
+	if (this->menuPick == 1) { (this->menuStart.setFillColor(sf::Color::Green)); }
+	else { this->menuStart.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 2) { (this->menuDescribe.setFillColor(sf::Color::Green)); }
+	else { this->menuDescribe.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 3) { (this->menuOptions.setFillColor(sf::Color::Green)); }
+	else { this->menuOptions.setFillColor(sf::Color::White); }
+
+	if (this->menuPick == 4) { (this->menuExit.setFillColor(sf::Color::Green)); }
+	else { this->menuExit.setFillColor(sf::Color::White); }
+
 
 	sf::FloatRect textRect1 = menuExit.getLocalBounds();
 	menuExit.setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);

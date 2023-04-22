@@ -81,6 +81,7 @@ class Game
 	enum gameState; 
 	gameState state_;
 
+	int menuPick;
 	int count;
 	int points;
 	std::string temp_word;
@@ -126,6 +127,8 @@ class Game
 	void initWords();
 	void initTextFile();
 	void initStart_time();
+
+	void resetGame();
 ;
 	void initbackgroundTexture();
 
@@ -171,7 +174,7 @@ public:
 	void renderScore(sf::RenderTarget& target);
 	void renderMenu(sf::RenderTarget& target);
 
-	void endScore();
+	void endMenu();
 	
 
 };
