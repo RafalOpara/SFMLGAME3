@@ -52,7 +52,7 @@ void Game::uptadeTextIn()
 	}
 
 	this->textIn.setString(so.str());
-	sf::FloatRect textRectIn = textIn.getLocalBounds();
+	sf::FloatRect textRectIn = this->textIn.getLocalBounds();
 	this->textIn.setOrigin(textRectIn.left + textRectIn.width / 2.0f, textRectIn.top + textRectIn.height / 2.0f);
 	this->textIn.setPosition(this->window->getSize().x / 2.0f, this->window->getSize().y / 2.0f);
 
@@ -167,7 +167,7 @@ void Game::uptadeTime()
 	// wyświetl upływający czas na ekranie
 
 	std::stringstream timeString;
-	timeString << "Czas gry: " << std::fixed << std::setprecision(1) << time_left << " s";
+	timeString << "Czas gry: " << std::fixed << std::setprecision(1) << this->time_left << " s";
 
 	sf::Text timeText(timeString.str(), fontPlus, 1);
 	
@@ -178,27 +178,30 @@ void Game::uptadeTime()
 	this->textTime.setPosition(800, 35);
 
 	
-	if (time_left < 0.0)
+	if (this->time_left < 0.0)
 	{
 		this->setScore(true);
+		this->musicStop();
 		this->gameState = 3;
+		
 	}
 	
 
 
-	if (time_left >= 20)
+	if (this->time_left >= 20)
 	{
 		textTime.setFillColor(sf::Color::White);
 	}
-	else if(time_left < 20 && time_left >10)
+	else if(this->time_left < 20 && this->time_left >10)
 	{
 		this->textTime.setFillColor(sf::Color::Yellow);
 	}
-	else if (time_left <= 10)
+	else if (this->time_left < 10 &&this->time_left>5 )
 	{
-		textTime.setFillColor(sf::Color::Red);
+		this->textTime.setFillColor(sf::Color::Red);
+		this->music.play();
 	}
-	
+
 	
 }
 
@@ -330,58 +333,89 @@ void Game::uptadeMenu()
 	this->menuDescribe.setString("");
 	this->menuOptions.setString("");
 
-	
-
-	this->menuStart.setString(so1.str());
-	this->menuDescribe.setString(so2.str());
-	this->menuOptions.setString(so3.str());
-	this->menuExit.setString(so4.str());
+	if (this->menuPickConfirmed == 0)
+	{
 
 
-;	so1 << "START";
-this->menuStart.setString(so1.str());
 
-so2 << "DESCRIBE";
-this->menuDescribe.setString(so2.str());
-
-so3 << "OPTIONS";
-this->menuOptions.setString(so3.str());
-
-so4 << "EXIT";
-this->menuExit.setString(so4.str());
-
-	this->menuStart.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.2));
-	this->menuDescribe.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.4));
-	this->menuOptions.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.6));
-	this->menuExit.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.8));
+		this->menuStart.setString(so1.str());
+		this->menuDescribe.setString(so2.str());
+		this->menuOptions.setString(so3.str());
+		this->menuExit.setString(so4.str());
 
 
-	if (this->menuPick == 1) { (this->menuStart.setFillColor(sf::Color::Green)); }
-	else { this->menuStart.setFillColor(sf::Color::White); }
+		;	so1 << "START";
+		this->menuStart.setString(so1.str());
 
-	if (this->menuPick == 2) { (this->menuDescribe.setFillColor(sf::Color::Green)); }
-	else { this->menuDescribe.setFillColor(sf::Color::White); }
+		so2 << "DESCRIBE";
+		this->menuDescribe.setString(so2.str());
 
-	if (this->menuPick == 3) { (this->menuOptions.setFillColor(sf::Color::Green)); }
-	else { this->menuOptions.setFillColor(sf::Color::White); }
+		so3 << "OPTIONS";
+		this->menuOptions.setString(so3.str());
 
-	if (this->menuPick == 4) { (this->menuExit.setFillColor(sf::Color::Green)); }
-	else { this->menuExit.setFillColor(sf::Color::White); }
+		so4 << "EXIT";
+		this->menuExit.setString(so4.str());
 
-
-	sf::FloatRect textRect1 = menuExit.getLocalBounds();
-	menuExit.setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);
-
-	sf::FloatRect textRect2 = menuStart.getLocalBounds();
-	menuStart.setOrigin(textRect2.left + textRect2.width / 2.0f, textRect2.top + textRect2.height / 2.0f);
-
-	sf::FloatRect textRect3 = menuDescribe.getLocalBounds();
-	menuDescribe.setOrigin(textRect3.left + textRect3.width / 2.0f, textRect3.top + textRect3.height / 2.0f);
-
-	sf::FloatRect textRect4 = menuOptions.getLocalBounds();
-	menuOptions.setOrigin(textRect4.left + textRect4.width / 2.0f, textRect4.top + textRect4.height / 2.0f);
+		this->menuStart.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.2));
+		this->menuDescribe.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.4));
+		this->menuOptions.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.6));
+		this->menuExit.setPosition(this->videoMode.width / 2.f, (this->videoMode.height * 0.8));
 
 
+		if (this->menuPick == 1) { (this->menuStart.setFillColor(sf::Color::Green)); }
+		else { this->menuStart.setFillColor(sf::Color::White); }
+
+		if (this->menuPick == 2) { (this->menuDescribe.setFillColor(sf::Color::Green)); }
+		else { this->menuDescribe.setFillColor(sf::Color::White); }
+
+		if (this->menuPick == 3) { (this->menuOptions.setFillColor(sf::Color::Green)); }
+		else { this->menuOptions.setFillColor(sf::Color::White); }
+
+		if (this->menuPick == 4) { (this->menuExit.setFillColor(sf::Color::Green)); }
+		else { this->menuExit.setFillColor(sf::Color::White); }
+
+
+		sf::FloatRect textRect1 = menuExit.getLocalBounds();
+		menuExit.setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);
+
+		sf::FloatRect textRect2 = menuStart.getLocalBounds();
+		menuStart.setOrigin(textRect2.left + textRect2.width / 2.0f, textRect2.top + textRect2.height / 2.0f);
+
+		sf::FloatRect textRect3 = menuDescribe.getLocalBounds();
+		menuDescribe.setOrigin(textRect3.left + textRect3.width / 2.0f, textRect3.top + textRect3.height / 2.0f);
+
+		sf::FloatRect textRect4 = menuOptions.getLocalBounds();
+		menuOptions.setOrigin(textRect4.left + textRect4.width / 2.0f, textRect4.top + textRect4.height / 2.0f);
+
+	}
+	else if (menuPickConfirmed == 2)
+	{
+		this->textDown.setString("");
+		this->textDown2.setString("");
+
+		so1 << "The player starts with a zero score, and the game lasts for thirty seconds.\n The goal of the game is to score as many points as possible,\n which are awarded for each correctly transcribed word.\n Each correctly written word gives the player one point.";
+		so1<<"	\nTo encourage players to write quickly and effectively, two tenths of second\n are added to the game time for each correctly transcribed word.This means\n that players who are fastand accurate in writing\n will have more time to score pointsand win the game.\n\n GOOD LUCK!";
+
+		so2 << "Press enter to return to the menu";
+
+		this->textDown.setString(so1.str());
+		this->textDown2.setString(so2.str());
+
+		sf::FloatRect textRectIn = this->textDown.getLocalBounds();
+		
+
+		this->textDown.setPosition((this->window->getSize().x - this->textDown.getLocalBounds().width) / 2 - 40,
+			(this->window->getSize().y - this->textDown.getLocalBounds().height) / 2 - 40);
+		this->textDown.setCharacterSize(25);
+
+		this->textDown2.setPosition(650, 400);
+
+	}
 
 }
 
+void Game::uptadeMenuDescribe()
+{
+
+	;
+}

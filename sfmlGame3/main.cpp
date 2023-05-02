@@ -18,6 +18,8 @@ int main()
 	//Game loop
 	while (game.running() && !game.getEndGame() )
 	{
+		
+
 		if (game.getGameState() == 1)
 		{
 			game.menuRender();

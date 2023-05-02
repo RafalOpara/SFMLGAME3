@@ -69,8 +69,11 @@ class Game
 	std::fstream TextFile;
 
 
-	//
+	//music
 
+	sf::Music music;
+	sf::Music music2;
+	//
 	bool endGame;
 	bool score;
 
@@ -81,7 +84,10 @@ class Game
 	enum gameState; 
 	gameState state_;
 
+	int checkMusic;
+
 	int menuPick;
+	int menuPickConfirmed;
 	int count;
 	int points;
 	std::string temp_word;
@@ -103,7 +109,7 @@ class Game
 
 	sf::RenderWindow m_window;
 	
-	
+
 
 
 	///////////////////////test
@@ -127,6 +133,9 @@ class Game
 	void initWords();
 	void initTextFile();
 	void initStart_time();
+	void initMusic();
+	
+	
 
 	void resetGame();
 ;
@@ -150,8 +159,12 @@ public:
 	//public functions
 
 
+	void musicStart();
+	void musicStop();
+
 	int getGameState();
 	void setGameState(int);
+
 
 	void poolEvents();
 	void uptadeMousePositions();
@@ -163,6 +176,8 @@ public:
 	void uptadeTime();
 	void uptadePoints();
 	void uptade();
+
+	void uptadeMenuDescribe();
 	
 
 	void render();

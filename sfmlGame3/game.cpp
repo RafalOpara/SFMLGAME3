@@ -17,15 +17,16 @@ void Game::initializeVariables()
 	 this->count = 0;
 	 this-> points = 0;
 	 this->menuPick = 1;
-
-	this->time_left = 3;
+	 this->checkMusic = 0;
+	this->time_left = 30;
 
 	this->gameState = 1;
+	this->menuPickConfirmed = 0;
 
 	std::string temp_word;
 
 	
-
+	
 
 	
 }
@@ -40,12 +41,21 @@ void Game::resetGame()
 	this->count = 0;
 	this->points = 0;
 	this->menuPick = 1;
-	this->time_left = 3;
+	this->time_left = 30;
 	this->gameState = 1;
+	this->menuPickConfirmed = 0;
+	this->checkMusic = 0;
+	this->letters.clear();
+	
+	this->correctWords.clear();
+	this->uptadeTextDown();
 
-	letters.clear();
-	words.clear();
-	correctWords.clear();
+	this->music2.stop();
+	this->music2.play();
+
+
+
+
 
 }
 
@@ -80,8 +90,8 @@ Game::Game()
 	this->initWords();
 	this->initbackgroundTexture();
 	this->setbackgroundTexture();
+	this->initMusic();
 	
-
 	
 }
 
@@ -144,6 +154,19 @@ void Game::poolEvents()
 				this->window->close();
 
 			else if (this->gameState == 1)
+
+
+				if (this->menuPickConfirmed == 2)
+				{
+					if (ev.key.code == sf::Keyboard::Return)
+					{
+						this->menuPickConfirmed = 0;
+						this->textDown.setCharacterSize(20);
+						this->textDown.setString("");
+						this->textDown2.setString("");
+					}
+				}
+				else
 			{
 				if (ev.key.code == sf::Keyboard::Up)
 				{
@@ -167,15 +190,16 @@ void Game::poolEvents()
 					}
 					else if (this->menuPick == 2)
 					{
-						;
+						this->menuPickConfirmed=2;
+						
 					}
 					else if (this->menuPick == 3)
 					{
-						;
+						this->menuPickConfirmed = 3;
 					}
 					else if (this->menuPick == 4)
 					{
-						;
+						this->endGame = true;
 					}
 				}
 			}
@@ -197,7 +221,7 @@ void Game::poolEvents()
 								if (textIn.getFillColor() == sf::Color::Green && this->letters.size() == this->temp_word.size())
 								{
 									this->points++;
-									this->time_left = this->time_left + 1;
+									this->time_left = this->time_left + 0.2;
 									this->correctWords.push_back(temp_word);
 
 
@@ -285,11 +309,14 @@ void Game::poolEvents()
 					else if (this->menuPick == 2)
 					{
 						this->resetGame();
+						this->uptadeTextOut();
 						this->gameState=2;// jak tu bedzie kiedys zagraj ponownie to bedzie trzeba wszystko zresetowac jak punkty czy game stare itp wszystkoo
 					}
 					else if (this->menuPick == 3)
 					{
+
 						this->resetGame();
+						this->uptadeTextOut();
 						this->gameState = 1;
 					}
 					else if (this->menuPick == 4)

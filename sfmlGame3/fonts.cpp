@@ -1,12 +1,41 @@
 #include "Game.h"
 
-
-
-void Game::setbackgroundTexture()
+void Game::initMusic()
 {
-	this->background.setTexture(this->backgroundTexture);
-
+	if (music.openFromFile("music/ring.wav"))
+	{
+		std::cout << "CORRECT: ring ring  " << std::endl;
+		this->music.setVolume(20.f);
+		
+	}
+	if (music2.openFromFile("music/music.wav"))
+	{
+		std::cout << "CORRECT: music  " << std::endl;
+		this->music2.setVolume(50.f);
+		this->music2.play();
+	}
 }
+
+
+void Game::musicStart()
+{
+	if (this->checkMusic == 0)
+	{
+		this->music.play();
+		this->checkMusic++;
+	}
+}
+
+void Game::musicStop()
+{
+	this->music.stop();
+}
+
+	void Game::setbackgroundTexture()
+	{
+		this->background.setTexture(this->backgroundTexture);
+
+	}
 
 
 

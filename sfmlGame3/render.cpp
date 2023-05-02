@@ -14,10 +14,18 @@ void Game::renderbackGround()
 
 void Game::renderMenu(sf::RenderTarget& target)
 {
-	target.draw(this->menuStart);
-	target.draw(this->menuDescribe);
-	target.draw(this->menuOptions);
-	target.draw(this->menuExit);
+	if (this->menuPickConfirmed == 0)
+	{
+		target.draw(this->menuStart);
+		target.draw(this->menuDescribe);
+		target.draw(this->menuOptions);
+		target.draw(this->menuExit);
+	}
+	else if (this->menuPickConfirmed == 2)
+	{
+		target.draw(this->textDown);
+		target.draw(this->textDown2);
+	}
 }
 
 void Game::menuRender()
@@ -45,6 +53,8 @@ void Game::renderText(sf::RenderTarget& target)
 
 void Game::render()
 {
+	
+
 	this->window->clear();
 
 	// draw 
